@@ -14,8 +14,27 @@ router.get("/", async (req, res) => {
 });
 
 //Add Goals
+router.post("/", async (req, res) => {
+  const goals = await loadGoalsConnection();
+
+  await goals.insertOne({
+    goal: req.body.goal,
+    createdAt: new Date(),
+  });
+
+  res.status(201).send();
+});
 
 //Delete Goals
+router.delete("/:id", async (req, res) => {
+  const goals = await loadGoalsConnection();
+
+  await goals.deleteOne({
+    _id: new mongoDb.ObjectID(req.params.id),
+  });
+
+  res.status(200).send();
+});
 
 //Geting Our MongoDb
 async function loadGoalsConnection() {
@@ -23,7 +42,7 @@ async function loadGoalsConnection() {
     useNewUrlParser: true,
   });
 
-  return client.db("devconnector").collection("goals");
+  return client.db("vueGoals").collection("goals");
 }
 
 module.exports = router;
