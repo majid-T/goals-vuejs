@@ -5,19 +5,21 @@ const url = "http://localhost:5000/api/goals/";
 class GoalService {
   //Geting Goals
   static getGoals() {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const res = await axios.get(url);
-        const data = res.data;
-        resolve(
-          data.map((goal) => ({
-            ...goal,
-            createdAt: new Date(goal.createdAt),
-          }))
-        );
-      } catch (error) {
-        reject(error);
-      }
+    return new Promise((resolve, reject) => {
+      axios
+        .get(url)
+        .then((res) => {
+          const data = res.data;
+          resolve(
+            data.map((post) => ({
+              ...post,
+              createdAt: new Date(post.createdAt),
+            }))
+          );
+        })
+        .catch((err) => {
+          reject(err);
+        });
     });
   }
 

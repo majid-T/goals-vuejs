@@ -1,58 +1,76 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
+<div class="container">
+    <h1>Your Goals</h1>
+    <hr />
+    <p class="error" v-if="error">{{ error }}</p>
+    <div class="goals-containe">
+        <div class="goal" v-for="(goal, index) in goals" v-bind:item="goal" v-bind:index="index" v-bind:key="goal._id">
+            {{
+          `${goal.createdAt.getDate()}/${goal.createdAt.getMonth()}/${goal.createdAt.getFullYear()}`
+        }}
+            <p class="text">{{ goal.goal }}</p>
+        </div>
+    </div>
+</div>
 </template>
 
 <script>
+import GoalService from "../GoalsService";
 export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
+    name: "GoalComponent",
+    data() {
+        return {
+            goals: [],
+            error: "",
+            text: "",
+        };
+    },
+    async created() {
+        try {
+            this.goals = await GoalService.getGoals();
+        } catch (err) {
+            this.error = err.message;
+        }
+    },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+div.container {
+    max-width: 800px;
+    margin: 0 auto;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+p.error {
+    border: 1px solid tomato;
+    background-color: orange;
+    padding: 10px;
+    margin-bottom: 15px;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+div.goal {
+    position: relative;
+    border: 1px solid olivedrab;
+    background-color: lightgreen;
+    padding: 10px 10px 30px 10px;
+    margin-bottom: 15px;
 }
-a {
-  color: #42b983;
+
+div.createdAt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px 15px 5px 15px;
+    background-color: green;
+    color: white;
+    font-size: 15px;
+}
+
+p.text {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 0;
 }
 </style>
