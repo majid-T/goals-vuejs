@@ -1,6 +1,11 @@
 <template>
 <div class="container">
     <h1>Your Goals</h1>
+    <div class="create-goal">
+        <label for="create-goal">What is your new Goal?</label>
+        <input type="text" id="create-goal" v-model="newGoal" placeholder="My new Goal" />
+        <button @click="addGoal">Add</button>
+    </div>
     <hr />
     <p class="error" v-if="error">{{ error }}</p>
     <div class="goals-containe">
@@ -22,7 +27,7 @@ export default {
         return {
             goals: [],
             error: "",
-            text: "",
+            newGoal: "",
         };
     },
     async created() {
@@ -31,6 +36,13 @@ export default {
         } catch (err) {
             this.error = err.message;
         }
+    },
+    methods: {
+        async addGoal() {
+            await GoalService.insertGoal(this.newGoal);
+            this.goals = await GoalService.getGoals();
+            this.newGoal = "";
+        },
     },
 };
 </script>

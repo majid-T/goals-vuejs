@@ -24,9 +24,9 @@ class GoalService {
   }
 
   //Creating Goals
-  static insertGoal(text) {
+  static insertGoal(goal) {
     return axios.post(url, {
-      text,
+      goal,
     });
   }
 
