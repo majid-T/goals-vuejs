@@ -40,6 +40,7 @@ router.delete("/:id", async (req, res) => {
 async function loadGoalsConnection() {
   const client = await mongoDb.MongoClient.connect(dbUri, {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
   });
 
   return client.db("vueGoals").collection("goals");
