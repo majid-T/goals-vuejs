@@ -1,6 +1,6 @@
 <template>
 <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
+    <i class="fas fa-medal fa-8x"></i>
     <GoalComponent />
 </div>
 </template>
@@ -11,8 +11,8 @@ import GoalComponent from "./components/GoalComponent.vue";
 export default {
     name: "App",
     components: {
-        GoalComponent
-    }
+        GoalComponent,
+    },
 };
 </script>
 
@@ -21,8 +21,11 @@ export default {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
     color: #2c3e50;
     margin-top: 60px;
+}
+
+body {
+    background-color: #46a093;
 }
 </style>
