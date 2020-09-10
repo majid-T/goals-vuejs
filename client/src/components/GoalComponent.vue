@@ -8,12 +8,15 @@
     </div>
     <hr />
     <p class="error" v-if="error">{{ error }}</p>
-    <div class="goals-containe">
+    <div class="goals-container">
         <div class="goal" v-for="(goal, index) in goals" v-bind:item="goal" v-bind:index="index" v-bind:key="goal._id">
             {{
           `${goal.createdAt.getDate()}/${goal.createdAt.getMonth()}/${goal.createdAt.getFullYear()}`
         }}
             <p class="text">{{ goal.goal }}</p>
+            <button @click="deleteGoal(goal._id)">
+                Delete
+            </button>
         </div>
     </div>
 </div>
@@ -40,6 +43,12 @@ export default {
     methods: {
         async addGoal() {
             await GoalService.insertGoal(this.newGoal);
+            this.goals = await GoalService.getGoals();
+            this.newGoal = "";
+        },
+
+        async deleteGoal(id) {
+            await GoalService.deleteGoal(id);
             this.goals = await GoalService.getGoals();
             this.newGoal = "";
         },
