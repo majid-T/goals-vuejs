@@ -1,13 +1,13 @@
-# goals-vuejs
+# Goals-vuejs
 
-This is sample project to add/delete goals to e mongoDb back end using Vue.js as front end. We will be using Express to expose endpoints and communicate by HTTP REST API protocol.
+This is sample project to add/delete goals to a mongoDb back end using Vue.js as front end. We will be using Express to expose endpoints and communicate by HTTP REST API protocol.
 
  <div align="center" >
       <img
         src="./screenShot.gif"
         alt="screenShot"
-        width="75%"
-        height="75%"
+        width="80%"
+        height="80%"
       />
   </div>
 
@@ -19,17 +19,25 @@ This is sample project to add/delete goals to e mongoDb back end using Vue.js as
 - [NodeJs](https://nodejs.org/) - Javascript runtime environment
 - [axios](https://www.npmjs.com/package/axios) For sending different HTTP method requests
 - [Font awsome](https://fontawesome.com/) - CDN for Online icons and fonts
-- [config](https://www.npmjs.com/package/config) - Node-config organizes hierarchical configurations for your app deployments
+- [Config](https://www.npmjs.com/package/config) - Node-config organizes hierarchical configurations for your app deployments
+
+### exposed REST API endpoints details:
+
+| HTTP Method | path           | input        | output                        |
+| ----------- | -------------- | ------------ | ----------------------------- |
+| + GET       | /api/goals     | N/A          | retrun all goals as json List |
+| + POST      | /api/goals     | goal(string) | create a new goal             |
+| + PUT       | /api/goals/:id | id(int)      | deletes a goal from database  |
 
 ### To run this project
 
-1. git clone this repo
+- git clone this repo
 
 ```
 git clone https://github.com/majid-T/goals-vuejs.git
 ```
 
-1. Cd to server folder, npm install to get dependencies and run the backend dev server
+- Cd to server folder, npm install to get dependencies and run the backend dev server and keep it running
 
 ```
 cd server
@@ -37,7 +45,7 @@ npm install
 npm run dev
 ```
 
-1. Open new terminal and cd to client folder, npm install to get dependencies and run the front end dev server
+- Open new terminal and cd to client folder, npm install to get dependencies and run the front end dev server and keep it running
 
 ```
 cd client
@@ -45,11 +53,10 @@ npm install
 npm run serve
 ```
 
-1. Important note. I am using config to keep my mongoDb URI which will be missing form this code for you. YOu need to add your own mongoDB URI. to do that make a config folder in your root directory, then create a default.json file like example below.
+- Important note. I am using config to keep my mongoDb URI which will be missing form this code for you. You need to add your own mongoDB URI. To do that make a config folder in your root directory, then create a default.json file like example below.
 
 ```
 {
   "mongoURI": "YOUR OWN MONGODB URI"
 }
-
 ```
