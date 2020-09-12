@@ -1,7 +1,7 @@
 <template>
 <div class="container">
     <h1>Your Goals</h1>
-    <addGoal />
+    <addGoal v-on:refresh-goals="refreshList" />
     <hr />
     <p class="error" v-if="error">{{ error }}</p>
     <div class="loadingDiv">
@@ -54,7 +54,12 @@ export default {
 
             await GoalService.deleteGoal(id);
             this.goals = await GoalService.getGoals();
-            this.newGoal = "";
+            this.loading = false;
+        },
+        async refreshList() {
+            this.loading = true;
+
+            this.goals = await GoalService.getGoals();
             this.loading = false;
         },
     },

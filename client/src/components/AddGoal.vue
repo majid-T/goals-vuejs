@@ -29,6 +29,8 @@ export default {
             this.newGoal = "";
 
             this.loading = false;
+
+            this.$emit("refresh-goals");
         },
     },
 };
